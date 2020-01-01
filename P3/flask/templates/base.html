@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="./static/css/estilo.css" rel="stylesheet"/>
+    <title>Pick-a-serie</title>
+</head>
+<body>
+    <header>
+        <div class="title">
+                <img class='logo' src="/static/imagenes/logo.png"/>
+                <div class='titulos'>
+                    <h1>pick-a-serie</h1>
+                    <h2>La pagina donde podras cotillear sobre tus series favoritas (solo pokemon y friends).</h2>
+                </div>
+        </div>
+
+        <div class="login">
+            {% if username %}
+                <h3>Bienvenido {{username}}</h3>
+                <form action="/logout" method="post">
+                    <input type="submit" value="Logout" name="Logout"/>
+                </form>
+            {% else %}
+                <div class="login">
+                    <form action="/login" method="POST">
+                        <p>Usuario: <input type="text" name="username"/></p>
+                        <p>Contraseña: <input type="password" name="password"/></p>
+                        <a href="/registrar">Si no esta registrado pulse aqui.</a> 
+                        <input type="submit" value="Login" name="Entrar"/>
+                    </form>
+                </div>
+                
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="principal">
+        <aside>
+            {% if username %}
+                <a href="/datos">Datos de usuario.</a>
+                    {% if historial %}
+                        <ul><h3>Historial:</h3>
+                        {% for i in historial %}
+                            <li><a href="{{i}}">{{i}}</a></li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+            {% else %}
+                <a href="/registrar">Nuevo usuario.</a>
+            {% endif %}
+        </aside>
+
+        <main>
+            {% block main %}
+                <h1>Bienvenidos a la pagina</h1>
+            {% endblock %}
+        </main>
+    </div>
+
+    <footer>
+        <p>Paula Ruiz Garcia</p>
+    </footer>
+</body>
+</html>

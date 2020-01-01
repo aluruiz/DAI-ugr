@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="./static/css/estilo.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>Pick-a-serie</title>
+</head>
+<body>
+    <header class="row justify-content-between m-2">
+        <div class="col-sm-7">
+            <div id="title" class="d-flex m-2">
+                    <img id='logo' class="align-self-stretch" src="/static/imagenes/logo.png"/>
+                    <div class='titulos'>
+                        <h1>pick-a-serie</h1>
+                        <h4>La pagina donde podras cotillear sobre tus series favoritas (solo pokemon y friends).</h4>
+                    </div>
+            </div>
+        </div>
+        
+        <div id="login" class="col-sm-3 m-3">
+            {% if username %}
+                <h3>¡Hola {{username}}!</h3>
+                <form action="/logout" method="post">
+                    <input type="submit" class="btn btn-secondary" value="Logout" name="Logout"/>
+                </form>
+            {% else %}
+                <div class="login">
+                    <form action="/login" method="POST">
+                        <p>Usuario: <input type="text" class="form-control form-control-sm" name="username"/></p>
+                        <p>Contraseña: <input type="password" class="form-control form-control-sm" name="password"/></p>
+                        <p><a href="/registrar">Si no esta registrado pulse aqui.</a> </p>
+                        <input type="submit" class="btn btn-secondary" value="Login" name="Entrar"/>
+                    </form>
+                </div>
+                
+            {% endif %}
+        </div>
+    </header>
+    <nav class="nav justify-content-center ">
+        <a class="nav-link" href="/busqueda"> Capitulos de FRIENDS </a>
+        {% if username %}
+            <a class="nav-link" href="/modificar"> Modificar Pokemon </a>
+            <a class="nav-link" href="/eliminar"> Eliminar Pokemon </a>
+            <a class="nav-link" href="/datos"> Datos de usuario </a>
+        {% else %}
+            <a class="nav-link" href="/registrar"> Nuevo usuario </a>
+        {% endif %}
+    </nav>
+
+    <div id="principal" class="d-flex justify-content-between">
+        <aside>
+            {% if username %}
+                {% if historial %}
+                    <ul><h3>Historial:</h3>
+                    {% for i in historial %}
+                        <li><a href="{{i}}">{{i}}</a></li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endif %}
+        </aside>
+
+        <main>
+            {% block main %}
+                <h1>Bienvenidos a la pagina</h1>
+            {% endblock %}
+        </main>
+    </div>
+
+    <footer class="d-flex justify-content-center m-2">
+        <p>Pagina creada por: </p>
+        <a href="https://github.com/aluruiz">Paula Ruiz García</a>
+    </footer>
+</body>
+</html>
