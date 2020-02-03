@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+    
+{% endblock %}
+
+{% block main %}
+<h2>Músicos</h2>
+<ul id="lista_rest">
+  	{% for i in lista %}
+            <li>{{ i.nombre }}</li>    
+  	{% endfor %}
+</ul>
+
+<ul class="pagination pagination-sm justify-content-center">
+    
+    {% for i in paginador %}
+    	<li >
+    		<a  href="{%url 'query' i %}" id="paginador">Página {{i}} </a>
+    	</li>
+    {% endfor %}
+    
+</ul>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block main %}
+    {% if nota %}
+        <h1>{{nota}}</h1>
+    {% else %}
+        <form class="form container" action="/modificar" method="post">
+            <div class="form-group">
+                <label>Nombre pokemon:</label><input name="nombre" class="form-control form-control-sm" type="text">
+            </div>
+            <div class="form-group">
+                <label>Nuevo Numero:</label><input name="numero" class="form-control form-control-sm" type="text">
+            </div>
+            <button type="submit" class="btn btn-success p-1">Modificar</button>
+        </form>
+        {% endif %}
+{% endblock %}

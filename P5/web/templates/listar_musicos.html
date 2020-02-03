@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block main %}
+<table>
+    <thead>
+        <tr>
+            <td>Nombre</td>
+            <td>Fecha Nacimiento</td>
+            <td>Instrumento</td>
+            <td>Acciones</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% if musicos %}
+        {% for musico in musicos %}
+        <tr>
+            <td>{{ musico.nombre }}</td>
+            <td>{{ musico.fec_nacimiento }}</td>
+            <td>{{ musico.instrumento }}</td>
+            <td class="justify-content-center">
+                <a href="{% url 'editar_musico' musico.id%}" class="btn btn-secondary">Editar</a>
+                <a href="{% url 'borrar_musico' musico.id%}" class="btn btn-secondary">Eliminar</a></td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <h1>No hay registros</h1>
+        {% endif %}
+    </tbody>
+</table>
+{% endblock %}

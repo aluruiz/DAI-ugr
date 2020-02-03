@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block main %}
+<form method="POST">
+    {% csrf_token %}
+    <h3>¿Desea eliminar el registro de {{variable.nombre}}?</h3>
+    <button type="submit">Sí, eliminar</button>
+    <a href="{% url 'listar_musico' %}">Cancelar</a>
+</form>
+{% endblock %}

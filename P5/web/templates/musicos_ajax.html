@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+<h2>Músicos</h2>
+<ul id="lista_musicos">
+  	{% for i in lista %}
+  		<li>{{ i.nombre }}</li>
+  	{% endfor %}
+</ul>
+
+<ul class="pagination pagination-sm justify-content-center">
+    
+    {% for i in paginador %}
+    	<li >
+    		<a onclick="clickPaginador({{i}})" id="paginador{{i}}"> Página {{i}}</a>
+    	</li>
+    {% endfor %}
+    
+</ul>
+{% endblock %}
+
+{% block script%}
+<script>
+
+function clickPaginador(pag) {
+    console.log("click con pag" + pag);
+    console.log("Pidiendo a {%url 'reclama_datos'%}"+pag);
+    let baseurl = "{%url 'reclama_datos' %}";
+    $.get (baseurl + pag,
+            {pagina:pag},
+            function (data)
+            {          
+                console.log("Recibido " + JSON.stringify(data));
+                $('#lista_musicos').empty(); 
+                
+                var datos = data['musicos'];
+
+                console.log(typeof(data.musicos));
+                var txt=data.musicos.split("},");
+                var nombres=Array(txt.length);
+                for (var i=0; i<txt.length;i++){
+                    nombres[i]=txt[i].slice(txt[i].indexOf("nombre"));
+                    nombres[i]=nombres[i].slice(10,nombres[i].indexOf(",")-1);
+                }
+		        console.log(txt);
+		        console.log(nombres);
+                
+                for (var i = 0; i < nombres.length; i++) {
+                    $('#lista_musicos').append(
+                        '<li>' + nombres[i] + '</li>'
+                    )
+                }
+            }
+    );
+}
+</script>
+{% endblock %}

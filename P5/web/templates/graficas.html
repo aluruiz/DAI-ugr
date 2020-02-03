@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block javascript%}
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+{% endblock %}
+{% block main %}
+<div id="container" style="width:100%; height:400px;"></div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var myChart = Highcharts.chart('container', {
+            chart: {
+                renderTo: 'container',
+                type: 'bar'
+            },
+            title: {
+                text: '¿Quien tiene más mienbros?'
+            },
+            xAxis: {
+                categories: [
+                {% for grupo in grupos %}
+                    '{{grupo.nombre}}',
+                {% endfor %}
+                ]
+            },
+            yAxis: {
+                title: {
+                    text: 'Numero de Albums'
+                }
+            },
+            series: [
+                    {
+                        name: 'Numero de Albumes',
+                        data: [
+                            {% for i in albums %}
+                            {{i}},
+                            {% endfor %}
+                            ]
+                    },
+                ]
+        });
+    });
+</script>
+{% endblock %}

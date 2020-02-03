@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block main %}
+<table>
+    <thead>
+        <tr>
+            <td>Nombre</td>
+            <td>Estilo</td>
+            <td>Fecha Fundacion</td>
+            <td>Integrantes</td>
+            <td>Acciones</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% if grupos %}
+        {% for grupo in grupos %}
+        <tr>
+            <td>{{ grupo.nombre }}</td>
+            <td>{{ grupo.estilo }}</td>
+            <td>{{ grupo.fec_fundacion }}</td>
+            <td>{{ grupo.mienbros }}</td>
+            <td class="justify-content-center">
+                <a href="{% url 'editar_grupo' grupo.id%}" class="btn btn-secondary">Editar</a>
+                <a href="{% url 'borrar_grupo' grupo.id%}" class="btn btn-secondary">Eliminar</a></td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <h1>No hay registros</h1>
+        {% endif %}
+    </tbody>
+</table>
+{% endblock %}
